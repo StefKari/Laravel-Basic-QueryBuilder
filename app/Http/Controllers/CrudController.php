@@ -8,9 +8,10 @@ use DB;
 class CrudController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the data.
      *
-     * @return \Illuminate\Http\Response
+     * @param void
+     * @return Response
      */
     public function index()
     {
@@ -19,20 +20,10 @@ class CrudController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Store new data into the database.
      *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  Request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -47,21 +38,10 @@ class CrudController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Displays the record being edited from the database.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  int
+     * @return array
      */
     public function edit($id)
     {
@@ -70,11 +50,11 @@ class CrudController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update data from database.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Request
+     * @param  int
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -84,10 +64,10 @@ class CrudController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Deletes data from the database.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  int
+     * @return Response
      */
     public function destroy($id)
     {
