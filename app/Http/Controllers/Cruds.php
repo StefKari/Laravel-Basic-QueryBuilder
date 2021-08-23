@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use DB;
 use Illuminate\Http\Request;
-use App\Crud;
+use App\Models\Crud;
+use DB;
 
-
-class CrudController extends Controller
+class Cruds extends Controller
 {
     /**
      * Display a listing of the data.
@@ -17,9 +16,10 @@ class CrudController extends Controller
      */
     public function index()
     {
-        $data = DB::select('select * from cruds');
-        
-        return view('index',compact('data'));
+
+        $data = Crud::all();
+
+        return view('index', compact('data'));
     }
 
     /**
@@ -30,14 +30,14 @@ class CrudController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-          'crudbody' => 'required',
+        $this->validate($request, [
+            'crudbody' => 'required',
         ]);
 
-        $crud = new Crud();
-        $crud->body = $request->input('crudbody');
-        $crud->save();
-        
+        $data = new Crud();
+        $data->body = $request->input('crudbody');
+        $data->save();
+
         return redirect('/');
 
     }
@@ -50,9 +50,17 @@ class CrudController extends Controller
      */
     public function edit($id)
     {
-        $data = DB::select('select * from cruds where id = ?',[$id]);
-        
-        return view('edit',compact('data'));
+        $field = [
+            'id',
+            'body',
+        ];
+
+        $data = Crud::select($field)
+            ->where('id', '=', $id)
+            ->get()
+        ;
+
+        return view('edit', compact('data'));
     }
 
     /**
@@ -64,10 +72,18 @@ class CrudController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->input('upcrud');
-        DB::update('update cruds set body=? where id=?',[$data,$id]);
-        
-        return redirect('/'); 
+        $body = $request->input('upcrud');
+
+        $arrToUpdate = [
+            'id'   => $id,
+            'body' => $body
+        ];
+
+        $data = Crud::where('id', '=', $id)
+            ->update($arrToUpdate)
+        ;
+
+        return redirect('/');
     }
 
     /**
@@ -78,8 +94,10 @@ class CrudController extends Controller
      */
     public function destroy($id)
     {
-        DB::delete('delete from cruds where id=?',[$id]);
-        
+        $data = Crud::find($id)
+            ->delete('id', $id)
+        ;
+
         return redirect('/');
     }
 }

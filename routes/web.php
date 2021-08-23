@@ -1,5 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Cruds;
+use App\Models\Crud;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,12 +15,26 @@
 |
 */
 
-Route::get('/','CrudController@index');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::post('/done','CrudController@store');
+Route::get('/', [Cruds::class, 'index']);
 
-Route::delete('/del/{id}','CrudController@destroy');
+Route::post('/done', [Cruds::class, 'store']);
 
-Route::get('/edit/{id}','CrudController@edit');
+Route::delete('/del/{id}', [Cruds::class, 'destroy']);
 
-Route::put('/up/{id}','CrudController@update');
+Route::get('/edit/{id}', [Cruds::class, 'edit']);
+
+Route::put('/up/{id}', [Cruds::class, 'update']);
+
+// Route::get('/','CrudController@index');
+
+// Route::post('/done','CrudController@store');
+
+// Route::delete('/del/{id}','CrudController@destroy');
+
+// Route::get('/edit/{id}','CrudController@edit');
+
+// Route::put('/up/{id}','CrudController@update');
